@@ -45,7 +45,7 @@ function logIn(){
 
 
 logInBtn.addEventListener('click' , function(e){
-  // e.preventDefault();
+  e.preventDefault();
   logIn();
 
 } )

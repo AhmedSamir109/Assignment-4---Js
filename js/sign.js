@@ -48,8 +48,8 @@ function createAccount(){
 
 
 
-signUpBtn.addEventListener('click' , function(){
-   
+signUpBtn.addEventListener('click' , function(e){
+    e.preventDefault();
     createAccount();
 
     if(createAccount()){
