@@ -11,7 +11,7 @@ var anchor = document.querySelector('#anchor');
 
 // console.log(signUpEmail);
 
-if(localStorage.getItem('userAccounts') != null){
+if(localStorage.getItem('userAccounts') !== null){
 
     var userAccounts =JSON.parse(localStorage.getItem('userAccounts'));
     console.log(userAccounts);
@@ -21,22 +21,24 @@ if(localStorage.getItem('userAccounts') != null){
     var userAccounts =[];
 };
 
-
+var account ={} ;
 function createAccount(){
 
-    var account ={
+     account ={
         userName : signUpName.value,
         userEmail : signUpEmail.value,
         userPass : signUpPass.value
     };
 
-    if(validateSignUpName() && validateSignUpEmail() && validateSignUpPass() && signUpName.value !== "" && signUpEmail.value !== "" && signUpPass.value !== ""){
+    if(validateSignUpName() && validateSignUpEmail() && validateSignUpPass() ){
     
     userAccounts.push(account);
 
     var jsonAcconts = JSON.stringify(userAccounts);
 
     localStorage.setItem('userAccounts' , jsonAcconts);
+
+    anchor.setAttribute('href' , 'index.html')
 
     return true ;
 }
@@ -48,14 +50,14 @@ function createAccount(){
 
 
 
-signUpBtn.addEventListener('click' , function(e){
-    e.preventDefault();
+signUpBtn.addEventListener('click' , function(){
+   
     createAccount();
 
-    if(createAccount()){
+    // if(createAccount()){
 
-        anchor.setAttribute('href' , 'index.html')
-    };
+    //     anchor.setAttribute('href' , 'index.html')
+    // };
 
 })
 
@@ -144,41 +146,95 @@ signUpName.addEventListener('blur' , validateSignUpName);
 
 
 
+// function validateSignUpEmail() {
+//     const signUpEmailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+//     const email = signUpEmail.value;
+  
+//     // for(var i = 0 ; i<userAccounts.length ; i++){
+
+//         if (signUpEmailRegex.test(email)) {
+
+//                 // if ( signUpEmail.value === userAccounts[i].userEmail) {
+//                 if ( userAccounts.includes(account)) {
+
+//                     signUpEmail.classList.add('is-invalid');
+//                     signUpEmail.classList.remove('is-valid');
+//                     signUpEmailAlert2.classList.remove('d-none');
+//                     signUpEmailAlert1.classList.add('d-none');
+            
+//                     return false;
+                
+//                 } else {
+//                     signUpEmail.classList.add('is-valid');
+//                     signUpEmail.classList.remove('is-invalid');
+//                     signUpEmailAlert1.classList.add('d-none');
+//                     signUpEmailAlert2.classList.add('d-none');
+            
+//                     return true;
+//                 }
+
+//         } else {
+//         signUpEmail.classList.add('is-invalid');
+//         signUpEmail.classList.remove('is-valid');
+//         signUpEmailAlert1.classList.remove('d-none');
+//         signUpEmailAlert2.classList.add('d-none');
+    
+//         return false;
+//         }
+//     // }
+
+// };
+
+
+//   signUpEmail.addEventListener('blur' ,validateSignUpEmail);
+
+
+
+
+
+
 function validateSignUpEmail() {
     const signUpEmailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     const email = signUpEmail.value;
   
-    for(var i = 0 ; i<userAccounts.length ; i++){
 
-    if (signUpEmailRegex.test(email)) {
-      // Check if the email already exists in the userAccounts array
-            if (signUpEmail.value === userAccounts[i].userEmail ) {
+         if (signUpEmailRegex.test(email)) {
 
+                    if ( userAccounts.includes(account)) {
+
+                        signUpEmail.classList.add('is-invalid');
+                        signUpEmail.classList.remove('is-valid');
+                        signUpEmailAlert2.classList.remove('d-none');
+                        signUpEmailAlert1.classList.add('d-none');
+                
+                        return false;
+                    
+                    } else {
+                        
+                        signUpEmail.classList.add('is-valid');
+                        signUpEmail.classList.remove('is-invalid');
+                        signUpEmailAlert1.classList.add('d-none');
+                        signUpEmailAlert2.classList.add('d-none');
+                
+                        return true;
+                    }
+    
+        } else {
+            
+            if(signUpEmailRegex.test(email) == false ){
+                
                 signUpEmail.classList.add('is-invalid');
                 signUpEmail.classList.remove('is-valid');
-                signUpEmailAlert2.classList.remove('d-none');
-                signUpEmailAlert1.classList.add('d-none');
-        
-                return false;
-            
-            } else {
-                signUpEmail.classList.add('is-valid');
-                signUpEmail.classList.remove('is-invalid');
-                signUpEmailAlert1.classList.add('d-none');
+                signUpEmailAlert1.classList.remove('d-none');
                 signUpEmailAlert2.classList.add('d-none');
-        
-                return true;
-            }
+            
+                return false;
 
-    } else {
-      signUpEmail.classList.add('is-invalid');
-      signUpEmail.classList.remove('is-valid');
-      signUpEmailAlert1.classList.remove('d-none');
-      signUpEmailAlert2.classList.add('d-none');
-  
-      return false;
-    }
- }
+            }else if (userAccounts.includes(account.userEmail)){
+
+            }
+        }
+    
 
 };
 
