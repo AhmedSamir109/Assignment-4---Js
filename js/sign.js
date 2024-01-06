@@ -101,7 +101,7 @@ signUpName.addEventListener('blur' , validateSignUpName);
 
 // for( var i = 0 ; i<userAccounts.length ; i++){
 
-//     if(signUpEmailRegex.test(email  && signUpEmail.value !== userAccounts[i].userEmail ) ){
+//     if(signUpEmailRegex.test(email )  && signUpEmail.value !== userAccounts[i].userEmail ) ){
 
       
         
@@ -193,51 +193,108 @@ signUpName.addEventListener('blur' , validateSignUpName);
 
 
 
-function validateSignUpEmail() {
-    const signUpEmailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    const email = signUpEmail.value;
+// function validateSignUpEmail() {
+//     const signUpEmailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+//     const email = signUpEmail.value;
   
 
-         if (signUpEmailRegex.test(email)) {
+//         if(userAccounts.length == 0){
+        
+//             if (signUpEmailRegex.test(email)) {
 
-                    if ( userAccounts.includes(account)) {
-
-                        signUpEmail.classList.add('is-invalid');
-                        signUpEmail.classList.remove('is-valid');
-                        signUpEmailAlert2.classList.remove('d-none');
-                        signUpEmailAlert1.classList.add('d-none');
+//                 signUpEmail.classList.add('is-valid');
+//                 signUpEmail.classList.remove('is-invalid');
+//                 signUpEmailAlert1.classList.add('d-none');
+//                 signUpEmailAlert2.classList.add('d-none');
+        
+//                 return true;
                 
-                        return false;
+
+//             } else{
                     
-                    } else {
-                        
-                        signUpEmail.classList.add('is-valid');
-                        signUpEmail.classList.remove('is-invalid');
-                        signUpEmailAlert1.classList.add('d-none');
-                        signUpEmailAlert2.classList.add('d-none');
+//                 signUpEmail.classList.add('is-invalid');
+//                 signUpEmail.classList.remove('is-valid');
+//                 signUpEmailAlert1.classList.remove('d-none');
+//                 signUpEmailAlert2.classList.add('d-none');
+            
+//                 return false;
                 
-                        return true;
-                    }
+//             }
+
+//     }else if (userAccounts.length > 0 ){
+
+//         for(var i = 0 ; i<userAccounts.length ; i++){
+
+//             if (signUpEmailRegex.test(email)) {
+
+//                 if ( signUpEmail.value == userAccounts[i].userEmail) {
+
+//                     signUpEmail.classList.add('is-invalid');
+//                     signUpEmail.classList.remove('is-valid');
+//                     signUpEmailAlert2.classList.remove('d-none');
+//                     signUpEmailAlert1.classList.add('d-none');
+        
+//                      return false;
+            
+//                 } else {
+//                     signUpEmail.classList.add('is-valid');
+//                     signUpEmail.classList.remove('is-invalid');
+//                     signUpEmailAlert1.classList.add('d-none');
+//                     signUpEmailAlert2.classList.add('d-none');
+        
+//                     return true;
+//                 }
     
-        } else {
-            
-            if(signUpEmailRegex.test(email) == false ){
+//             } else {
+
+//                 signUpEmail.classList.add('is-invalid');
+//                 signUpEmail.classList.remove('is-valid');
+//                 signUpEmailAlert1.classList.remove('d-none');
+//                 signUpEmailAlert2.classList.add('d-none');
+        
+//                 return false;
                 
-                signUpEmail.classList.add('is-invalid');
-                signUpEmail.classList.remove('is-valid');
-                signUpEmailAlert1.classList.remove('d-none');
-                signUpEmailAlert2.classList.add('d-none');
-            
-                return false;
+//             }
+//         }
 
-            }else if (userAccounts.includes(account.userEmail)){
+//     }
 
-            }
+
+// };
+
+function validateSignUpEmail() {
+    var signUpEmailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    var email = signUpEmail.value;
+
+    // Check if the email matches the regex pattern
+    if (!signUpEmailRegex.test(email)) {
+        signUpEmail.classList.add('is-invalid');
+        signUpEmail.classList.remove('is-valid');
+        signUpEmailAlert1.classList.remove('d-none');
+        signUpEmailAlert2.classList.add('d-none');
+        return false;
+    }
+
+    // Check if the email is already in use
+    for (var i = 0; i < userAccounts.length; i++) {
+        if (email === userAccounts[i].userEmail) {
+            signUpEmail.classList.add('is-invalid');
+            signUpEmail.classList.remove('is-valid');
+            signUpEmailAlert2.classList.remove('d-none');
+            signUpEmailAlert1.classList.add('d-none');
+            return false;
         }
-    
+    }
 
-};
+    if (signUpEmailRegex.test(email)){
+    signUpEmail.classList.add('is-valid');
+    signUpEmail.classList.remove('is-invalid');
+    signUpEmailAlert1.classList.add('d-none');
+    signUpEmailAlert2.classList.add('d-none');
+    return true;
 
+    }
+}
 
   signUpEmail.addEventListener('blur' ,validateSignUpEmail);
 
@@ -280,3 +337,4 @@ function validateSignUpPass(){
 };
 
 signUpPass.addEventListener('blur' ,validateSignUpPass);
+
